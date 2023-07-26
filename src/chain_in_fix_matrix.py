@@ -2,6 +2,7 @@
 from material_functions import MaterialProperties
 import numpy as np
 from scipy.sparse import diags
+import matplotlib.pyplot as plt
 
 
 class FixMatrix(MaterialProperties):
@@ -49,7 +50,7 @@ class FixMatrix(MaterialProperties):
 
         U = ((3 * self.Z * self.half_xgrid**2) / (2 * self.c)).astype('float64')
         A = self.rouse_relaxation_time / (self.c**2)  # c**2=4
-        return A * np.exp(U)
+        return [A * np.exp(U)]
 
     @staticmethod
     def pathIntersections(early_path, late_path):
@@ -68,52 +69,54 @@ class FixMatrix(MaterialProperties):
             ppfs(list(array)): primitive path fluctuations
         Notes:
             to be used as input when solving the pde"""
-
+        output = []
         early_path = self.early_fluctuation()
         late_path = self.late_fluctuation()
-        intersections = self.pathIntersections(early_path, late_path)
 
-        # if there are 2 intersection points
-        if len(intersections) == 2:
-            # when there are 2 intersection
-            begining_section = early_path[:intersections[0]]
-            # slicing to index b4 intersection
-            # slicing 4rm 1 index after intersection
-            ending_section = late_path[intersections[1] + 1:]
-            # pulling values from the midsection using their index
-            early_middle = early_path[intersections[0]:intersections[1] + 1]
-            late_middle = late_path[intersections[0]:intersections[1] + 1]
-            # update path for the midsection
-            av_paths = np.sqrt(early_middle * late_middle)
-            # actual fluctuation path
-            paths = np.concatenate(
-                (begining_section, av_paths, ending_section))
-        # for cases where you just have a single point of intersection between the early and late path
-        elif len(intersections) == 1:
-            # cases where a single intersection occurs and it happens at the early section of the chain
-            # condition where you have a C1 intersection but not C2
-            if late_path[-1] < early_path[-1]:
-                # values before intersections
-                early_middle = early_path[intersections[0]:]
-                late_middle = late_path[intersections[0]:]
+        for late in late_path:
+            intersections = self.pathIntersections(early_path, late)
+
+            # if there are 2 intersection points
+            if len(intersections) == 2:
+                # when there are 2 intersection
+                begining_section = early_path[:intersections[0]]
+                # slicing to index b4 intersection
+                # slicing 4rm 1 index after intersection
+                ending_section = late[intersections[1] + 1:]
+                # pulling values from the midsection using their index
+                early_middle = early_path[intersections[0]:intersections[1] + 1]
+                late_middle = late[intersections[0]:intersections[1] + 1]
+                # update path for the midsection
                 av_paths = np.sqrt(early_middle * late_middle)
+                # actual fluctuation path
                 paths = np.concatenate(
-                    (early_path[:intersections[0]], av_paths))
-            else:  # if the single intersection occurs towards the end of the chain
-                early_portion = early_path[:intersections[0] + 1]
-                late_portion = late_path[:intersections[0] + 1]
-                ending_section = late_path[intersections[0] + 1:]
-                av_paths = np.sqrt(early_portion * late_portion)
-                paths = np.concatenate((av_paths, ending_section))
+                    (begining_section, av_paths, ending_section))
+            # for cases where you just have a single point of intersection between the early and late path
+            elif len(intersections) == 1:
+                # cases where a single intersection occurs and it happens at the early section of the chain
+                # condition where you have a C1 intersection but not C2
+                if late[-1] < early_path[-1]:
+                    # values before intersections
+                    early_middle = early_path[intersections[0]:]
+                    late_middle = late[intersections[0]:]
+                    av_paths = np.sqrt(early_middle * late_middle)
+                    paths = np.concatenate(
+                        (early_path[:intersections[0]], av_paths))
+                else:  # if the single intersection occurs towards the end of the chain
+                    early_portion = early_path[:intersections[0] + 1]
+                    late_portion = late[:intersections[0] + 1]
+                    ending_section = late[intersections[0] + 1:]
+                    av_paths = np.sqrt(early_portion * late_portion)
+                    paths = np.concatenate((av_paths, ending_section))
 
-        else:
-            # when there is no intersection then use t_early
-            paths = early_path
-        # since symetric we calculated over half, mirrored the solution and concatenated
-        ppfs = np.concatenate((paths, paths[::-1]))
-        ppfs = ppfs[1:-1]  # excluding the values for the boundaries
-        # list helpfull for situation where we have a time dependency
-        return [ppfs]
+            else:
+                # when there is no intersection then use t_early
+                paths = early_path
+            # since symetric we calculated over half, mirrored the solution and concatenated
+            ppfs = np.concatenate((paths, paths[::-1]))
+            ppfs = ppfs[1:-1]
+            output.append(ppfs)
+        return output
 
     def initial_conditions(self):
         """initial solutions for the PDE at t=0"""
@@ -195,4 +198,50 @@ class FixMatrix(MaterialProperties):
 
             survival_probability.append(np.trapz(y=P, dx=self.ds))
 
-        return Pout, np.asarray(survival_probability)
+        return np.asarray(survival_probability)
+
+    def dilusionFactor(self, av_Prob):
+        """ The slope is calculated and compared to thalf not the slope of thalf"""
+
+        # Added for instances where the initial sol of the probability is not included
+        dilusion = []  # to store the chain constraint
+
+        # in case the probalility has been truncated due to negative values
+        delta_arrays = len(self.tgrid) - len(av_Prob)
+
+        t_values = self.tgrid[delta_arrays:]
+        t_powerHalf = t_values**(-0.5)
+        probs = av_Prob.copy()
+
+        dilusion.append(probs[0])
+        # calculating the rate of decrease in survival probability
+        prob_dropRate = abs(np.diff(probs) / np.diff(t_values))
+        thalf_dropRate = abs(np.diff(t_powerHalf) / np.diff(t_values))
+
+        # if the rate of drop in prob is higher than t_half replace by t_half
+        for i in range(len(prob_dropRate)):
+
+            # drop in prob is not allowed to be greater than drop in thalf
+            if prob_dropRate[i] < thalf_dropRate[i]:
+                # storing i+1 value if drop rate of prob is lower so we loop up to i-1
+                dilusion.append(probs[i + 1])
+
+            else:
+                # the points from which the unacceptable drop starts
+                tnot = t_values[i]
+                phinot = probs[i]
+                # slicing the remaining values to calculate the rouses
+                remaining_time = t_values[i + 1:]
+                remaining_prob = np.asarray(probs[i + 1:])
+                # activating the rouse process and use it to calculate the new probability value
+                activatedRouse = phinot * \
+                    (remaining_time / tnot)**(-0.5)  # calculate rouse
+                # generate the new values of the prob
+                newSurvival = np.maximum(remaining_prob, activatedRouse)
+                # add it to values when rouse wasnt activated
+                dilusion = np.concatenate((dilusion, newSurvival))
+                print('chain  solved and rouse check was activated')
+
+                break  # out of the for loop
+
+        return np.array(dilusion)  # dilutionFactor

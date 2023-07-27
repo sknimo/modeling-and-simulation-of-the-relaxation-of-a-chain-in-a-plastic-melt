@@ -40,7 +40,7 @@ $ r = \frac{\Delta t}{\pi^2 \tau_d \cdot 2 (\Delta s)^2}$
 
  this leads us to:
 
- $ P_i^{j+1} -P_i^j = r[ (P_{i-1}^{j+1} -2P_i^{j+1} + P_{i-1}^{j+1}) + (P_{i-1}^{j} -2P_i^{j} + P_{i-1}^{j})] - \alpha [P_i^{j+1} +P_i^{j} ]$
+ $P_i^{j+1} -P_i^j = r[ (P_{i-1}^{j+1} -2P_i^{j+1} + P_{i-1}^{j+1}) + (P_{i-1}^{j} -2P_i^{j} + P_{i-1}^{j})] - \alpha [P_i^{j+1} +P_i^{j}]$
 
  Rearranging by grouping the $j+1$ superscripts which refers to the next time step from tye $j$  gives:
 
@@ -49,5 +49,5 @@ $ r = \frac{\Delta t}{\pi^2 \tau_d \cdot 2 (\Delta s)^2}$
  This makes it evident that we are dealing with a matrix of the form
  $AP^{j+1} = BP^{j}$
 
- Let us now try to build the $A$ matrix with just a chain having 7 nodes. The solution at the end of the chain is known, given by the boundary conditions. So we just have the 5 internal nodes to evaluate the PDE at those points.
+ Let us now  build the $A$ matrix with just a chain having 7 nodes. The solution at the end of the chain is known, given by the boundary conditions. So we just have the 5 internal nodes to evaluate the PDE at those points.
 

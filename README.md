@@ -7,9 +7,9 @@
 
 ## Introduction
 ---
->Modeling and simulation  are an integral part of engineering. It helps us test ideas and concepts before time and resources are investment in them. Eventhough commercial softwares are available to help with that, presently none of the software is geared towards polymer science. In the course of my study, I had to develop all the softwares that I required for my research. This current one is one of them. My hope is that, this initiative should end up being an open source project with contributions from others in the field.
+>Modeling and simulation  are an integral part of engineering. It helps us test ideas and concepts before time and resources are investment in them. Eventhough commercial softwares are available to help with that, presently no software is geared towards polymer science. In the course of my study, I had to develop all the software that I required for my research. This current one is one of them. My hope is that, this initiative should end up being an open source project with contributions from others in the field.
 
-This programs evaluates the manner in which a chain found in a plastic melt relaxes when the imposed stress is removed. During processing of plastics, products of desires size and properties are manufactured so as to meet certain engineering needs. When the plastic melt leaves the extruder, it has a tendency to swell, since the barrel from which it was extruded no longer imposes constrains on it. A clear understanding and evaluation of the relaxation the relaxation of the melt is therefore a must to produce materials of specific size and shapes. With this program, the relaxation modulus of a melt can be estimated. This program is an implementation of the theoretical works of [Pattamaprom et al(2000)](https://link.springer.com/article/10.1007/s003970000104). 
+This programs evaluates the manner in which a chain in a plastic melt relaxes when the imposed stress is removed. During processing of plastics, products of desires size and properties are manufactured so as to meet certain engineering needs. When the plastic melt leaves the extruder, it has the tendency to swell, since the barrel from which it was extruded no longer imposes constrains on it. A clear understanding and evaluation of the relaxation of the melt is therefore a must to produce materials of specific size and shapes. With this program, the relaxation mechanism of a melt can be estimated. This program is an implementation of the theoretical works of [Pattamaprom et al(2000)](https://link.springer.com/article/10.1007/s003970000104), you can find that article in this repository in the folder "reference". For a non detailed explanation of the theory check the article I published [[*kwakye-Nimo et al.(2022)*](https://pubs.acs.org/doi/abs/10.1021/acs.macromol.2c01102)] and for the numerical implementation, read the file "notes_on_numerical_implementation.md" in this repository.
 
 ## Dataset
 ---
@@ -28,6 +28,20 @@ This programs evaluates the manner in which a chain found in a plastic melt rela
 
 <!-- ![Image result](reports/figures/deconvoluted.png) -->
 
+## How to use this program
+* First install the required dependencies using the requirement.txt file.
+* the codes are hosted in the _src_ folder. It contains: _material_function.py_, _chain_in_a_fix_matrix.py_ and _chain_in_a_variable_matrix.py_, which are 3 class objects with codes calculating the material parameter, solving the diffusion for cases where only the chain is allowed to move and solving the diffusion equation for case where both the chain and its surrounding can move. The only file that needs modification is the workpad, that is where all program inputs are supplied. The inputs are:
+    * the molecular weight distribution of the plastic material in question.
+    * the time steps over which the evolution of the diffusion of the chain is observed.
+    * the number of nodes along the chain where the solution to the PDE should be sought.
+    * the monomer weight, entanglement weight and equilibrium time are all material constants that also need to be supplied.
+
+## Ways to improve the program
+There are several works planned for the future:
+
+1. **Multi-processing:** parallel computing can be used to make the program run faster. This program currently makes use of a loop to find solutions for all the chains. This task can be distributed to the number of cores available to the processor.
+2. **Conversion to other material functions:** Currently, this program outputs the stress relaxation modulus. But polymer scientist traditionally prefer to work with the storage and loss modulus since measuring the stress relaxation modulus is challenging due to torque sensitivity. What can be done to improve this program in the future is to use mathematical relation to convert the stress relaxation modulus to other material functions.
+3. **Graphical interface:** Then finally a graphical user interface can be added.
 ## Tools used in this project
 ---
 * Packages: Anaconda

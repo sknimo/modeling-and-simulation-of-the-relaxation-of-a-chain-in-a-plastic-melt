@@ -191,7 +191,8 @@ class FixMatrix(MaterialProperties):
 
             # solve the algebra to get values at new time point
             P[1:-1] = np.linalg.solve(A, B)
-
+            # negative probabilities not allowed
+            P[P < 0] = 0
             # solution to that time step;array are mutable so we write a copy
             Pout.append(P.copy())
             # assert all(P < 0), 'negative values in probability, change ds step'

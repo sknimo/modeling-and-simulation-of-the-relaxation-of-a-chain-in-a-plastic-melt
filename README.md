@@ -23,10 +23,8 @@ This programs evaluates the manner in which a chain in a plastic melt relaxes wh
 
 ## Key insights
 ---
-<!-- The subpopulations in a molecular weight distribution can be identified using Machine learning. With knowledge of the sub-population characteristics an optimization routine can be subsequently used to effectively perform peak deconvolution. This method eliminates the need for the user to know ahead of time the characteristics of the peaks he is seeking to identify. -->
 
-
-<!-- ![Image result](reports/figures/deconvoluted.png) -->
+![Image result](reports/figures/relaxation.png)
 
 ## How to use this program
 * First install the required dependencies using the requirement.txt file.
@@ -47,3 +45,4 @@ There are several works planned for the future:
 * Packages: Anaconda
 * Libraries: Pandas, Numpy, Scipy, Matplotlib
 * Programming languages: Python 3
+* Numerical analysis

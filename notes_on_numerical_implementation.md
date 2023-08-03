@@ -32,7 +32,7 @@ The solution to the diffusion equation is sought at different point along the ch
 
 Let's simplify the expression by letting 
 
-$ r = \frac{\Delta t}{\pi^2 \tau_d \cdot 2 (\Delta s)^2}$
+$r = \frac{\Delta t}{\pi^2 \tau_d \cdot 2 (\Delta s)^2}$
 
  and 
 
@@ -49,5 +49,14 @@ $ r = \frac{\Delta t}{\pi^2 \tau_d \cdot 2 (\Delta s)^2}$
  This makes it evident that we are dealing with a matrix of the form
  $AP^{j+1} = BP^{j}$
 
- Let us now  build the $A$ matrix with just a chain having 7 nodes. The solution at the end of the chain is known, given by the boundary conditions. So we just have the 5 internal nodes to evaluate the PDE at those points.
+ Let us now  build the $A$ matrix with just a chain having 5 nodes as an example. Since the boundary conditions gives the solutions at the end of the nodes, it means that we now have to solve only for the internal nodes [ie 5-2=3], given us a matrix of size $3 \times 3$ to handle. So the boundaries have been greyed out as shown in the figure below [ the red line is our chain].
 
+![matrix](others/matrix.png) 
+
+For illustration we will only build the matrix for the right side i.e. $AP^{j+1}$ which is given by $-rP_{i-1}^{j+1} + (1 +2r + \alpha)P_{i}^{j+1}-rP_{i+1}^{j+1}$
+
+when $i=3$ we will have $-rP_{3-1}^{j+1} + (1 +2r + \alpha)P_{3}^{j+1}-rP_{3+1}^{j+1}$ which leads to $-rP_{2}^{j+1} + (1 +2r + \alpha)P_{3}^{j+1}-rP_{4}^{j+1}$
+
+so the solution to $i=3$ which is $(1 +2r + \alpha)$ will be put in cell (3,3) and that of $P_{2}$ will go to the left and $P_{3}$ to the right of the cell (3,3). By so doing we can build the entire matrix. When we get to $P_{1}$ and $P_{5}$, the solutions are given by the boundary conditions which since known are excluded from this calculation.
+
+In a similar way the $B$ matrix is set and then solution to  $AP^{j+1} = BP^{j}$ is sought.

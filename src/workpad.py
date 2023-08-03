@@ -6,6 +6,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+
+#================================Input parameters===================================================#
 monomer_weight = 28.05
 entanglement_weight = 1250
 equilibrium_time = 5.7e-09
@@ -20,6 +22,8 @@ dataset = pd.read_csv(
     '../data/inputs/Dataset.csv')
 distribution = pd.DataFrame(
     {'M': 10**dataset.iloc[:, 0], 'Wi': dataset.iloc[:, 1]})
+
+#==================================================================================================#
 
 
 def diffusion_in_fix_matrix(distribution, xgrid, tgrid, ds):

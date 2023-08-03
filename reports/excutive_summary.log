@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2023.7.27)  3 AUG 2023 14:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2023.7.27)  3 AUG 2023 16:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -866,43 +866,42 @@ ry-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 ) (./excutive_summary.nav) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 20.
 
-]
-<figures/relaxation.png, id=68, 344.54723pt x 286.1892pt>
-File: figures/relaxation.png Graphic file (type png)
-<use figures/relaxation.png>
-Package pdftex.def Info: figures/relaxation.png  used on input line 21.
-(pdftex.def)             Requested size: 241.1814pt x 200.33105pt.
- [3
-
- <./figures/relaxation.png>]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 32.
-
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 32.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 20.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
-ut line 32.
+ut line 20.
 
 (/usr/share/texlive/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
 )
-<figures/ppf.png, id=96, 285.82785pt x 274.98735pt>
+[2
+
+]
+<figures/relaxation.png, id=69, 344.54723pt x 286.1892pt>
+File: figures/relaxation.png Graphic file (type png)
+<use figures/relaxation.png>
+Package pdftex.def Info: figures/relaxation.png  used on input line 28.
+(pdftex.def)             Requested size: 241.1814pt x 200.33105pt.
+ [3
+
+ <./figures/relaxation.png>]
+<figures/ppf.png, id=97, 285.82785pt x 274.98735pt>
 File: figures/ppf.png Graphic file (type png)
 <use figures/ppf.png>
-Package pdftex.def Info: figures/ppf.png  used on input line 32.
+Package pdftex.def Info: figures/ppf.png  used on input line 39.
 (pdftex.def)             Requested size: 200.07813pt x 192.48982pt.
-
-[4
+ [4
 
  <./figures/ppf.png>] [5
 
@@ -921,21 +920,22 @@ Package rerunfilecheck Info: File `excutive_summary.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 21559 strings out of 476091
- 419177 string characters out of 5794081
+ 21583 strings out of 476091
+ 419909 string characters out of 5794081
  1857330 words of memory out of 5000000
- 41488 multiletter control sequences out of 15000+600000
+ 41512 multiletter control sequences out of 15000+600000
  519393 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,14n,122p,420b,557s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb>
-Output written on excutive_summary.pdf (5 pages, 484917 bytes).
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on excutive_summary.pdf (5 pages, 493997 bytes).
 PDF statistics:
- 184 PDF objects out of 1000 (max. 8388607)
- 153 compressed objects within 2 object streams
+ 189 PDF objects out of 1000 (max. 8388607)
+ 156 compressed objects within 2 object streams
  13 named destinations out of 1000 (max. 500000)
  53 words of extra memory for PDF output out of 10000 (max. 10000000)
 

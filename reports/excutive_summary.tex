@@ -9,7 +9,14 @@
 
 
 \begin{frame}
-The relaxation of a plastic melt was evaluated by solving a modified version of the diffusion equation. The program is able to estimate the amount of stress relaxation in the plastic melt at any given time. 
+The relaxation of a plastic melt was evaluated by solving a modified version of the diffusion equation. The program is able to estimate the amount of stress relaxation in the plastic melt at any given time. The program incorporated the following:
+\begin{itemize}
+
+\item the reptation of the chain along its axis
+\item the fluctuations along its contour length
+\item A check to ensure that relaxation is not faster than the rouse relaxation time
+\item a consideration of having both the chain and its surrounding in motion at the same time.
+\end{itemize}
 \end{frame}
 
 \begin{frame}

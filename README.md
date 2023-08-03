@@ -26,7 +26,16 @@ This programs evaluates the manner in which a chain in a plastic melt relaxes wh
 >Partial differential equations (PDE) are used not only in engineering but almost all fields. Whenever a feature of interest depends on two or more independent variable, then PDE will certainly show up when modelling the system. In Finance for example, it is often used for option pricing. In this context however it was used to model the relaxation of a plastic melt. From the Figure below, we can evaluate the stress stored in the material at a given time. For example around 100s we have about $2 \times 10^5Pa$ of stress to contain.
 
 In this work, the finite difference method was employed to find solutions to the problem of the diffusion of a chain in a plastic melt and the evaluated stress relaxation modulus is presented below.
+
+The program incorporated the following:
+* the reptation of the chain along it's axis
+* the fluctuations along its contour length 
+* A check to ensure that relaxation is not faster than the rouse relaxation time
+* a consideration of having both the chain and its surrounding in motion at the same time.
+
+
 ![Image result](reports/figures/relaxation.png)
+
 
 ## How to use this program
 * First install the required dependencies using the requirement.txt file.
